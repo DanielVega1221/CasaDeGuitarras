@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa de guitarras - Tu música, tu estilo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rock-black': '#111111',
+                        'rock-gray': '#2B2B2B',
+                        'rock-ivory': '#F8F5F0',
+                        'rock-red': '#B22222'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        .font-rock {
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .font-body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-gradient {
+            position: relative;
+            min-height: 100vh;
+            background: url('./fondo.jpg') center center/cover no-repeat;
+        }
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.6) 40%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.1) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .stage-lights {
+            background: radial-gradient(circle at 30% 20%, rgba(178, 34, 34, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(248, 245, 240, 0.05) 0%, transparent 50%);
+        }
+        
+        .guitar-shadow {
+            filter: drop-shadow(0 10px 30px rgba(178, 34, 34, 0.3));
+        }
+        
+        .hover-rock:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(178, 34, 34, 0.4);
+        }
+        
+        .cart-count {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card-button {
+            margin-top: auto;
+        }
+        
+        /* Professional enhancements */
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #B22222 0%, #DC2626 50%, #EF4444 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent 0%, #B22222 50%, transparent 100%);
+            height: 2px;
+        }
+        
+        .floating-card {
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(178, 34, 34, 0.2);
+        }
+        
+        .text-shadow-sm {
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .bg-gradient-dark {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 50%, #111111 100%);
+        }
+        
+        .bg-gradient-light {
+            background: linear-gradient(135deg, #F8F5F0 0%, #FFFFFF 50%, #F5F5F5 100%);
+        }
+        
+        .hero-stats {
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(248, 245, 240, 0.1);
+        }
+        
+        .category-btn-enhanced {
+            background: linear-gradient(135deg, #2B2B2B 0%, #1A1A1A 100%);
+            border: 1px solid rgba(178, 34, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-btn-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(178, 34, 34, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .category-btn-enhanced:hover::before {
+            left: 100%;
+        }
+        
+        .promotion-card {
+            background: linear-gradient(135deg, #F8F5F0 0%, #FFFFFF 100%);
+            border: 1px solid rgba(178, 34, 34, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promotion-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(178, 34, 34, 0.05) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+        
+        .promotion-card:hover::before {
+            transform: rotate(45deg) scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-rock-black text-rock-ivory font-body">
+    <!-- Header -->
+    <header class="bg-gradient-dark shadow-2xl sticky top-0 z-50 border-b border-rock-red/20">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="./logo.png" alt="Casa de guitarras" class="w-24 h-24 md:w-36 md:h-36 object-contain">
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-rock-ivory p-2 rounded-lg hover:bg-rock-red/20 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="relative text-rock-ivory hover:text-rock-red transition-all duration-300 font-medium py-2 group">
+                        Inicio
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rock-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#catalogo" class="relative text-rock-ivory hover:text-rock-red transition-all duration-300 font-medium py-2 group">
+                        Catálogo
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rock-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#promociones" class="relative text-rock-ivory hover:text-rock-red transition-all duration-300 font-medium py-2 group">
+                        Promociones
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rock-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#nosotros" class="relative text-rock-ivory hover:text-rock-red transition-all duration-300 font-medium py-2 group">
+                        Nosotros
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rock-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contacto" class="relative text-rock-ivory hover:text-rock-red transition-all duration-300 font-medium py-2 group">
+                        Contacto
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rock-red transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </nav>
+                
+                <!-- Search & Cart - Desktop -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar instrumentos..." class="bg-rock-black/80 backdrop-blur-sm text-rock-ivory px-4 py-2 rounded-xl w-64 focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 transition-all">
+                        <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <button class="relative bg-gradient-to-r from-rock-red to-red-600 hover:from-red-600 hover:to-rock-red px-4 py-2 rounded-xl transition-all duration-300 shadow-lg hover:shadow-red-500/25">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-rock-ivory text-rock-black text-xs rounded-full w-5 h-5 flex items-center justify-center cart-count font-bold">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Cart Only -->
+                <div class="md:hidden">
+                    <button class="relative bg-gradient-to-r from-rock-red to-red-600 hover:from-red-600 hover:to-rock-red px-3 py-2 rounded-xl transition-all duration-300 shadow-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+                        </svg>
+                        <span class="absolute -top-2 -right-2 bg-rock-ivory text-rock-black text-xs rounded-full w-4 h-4 flex items-center justify-center cart-count font-bold text-xs">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <nav id="mobile-menu" class="md:hidden hidden mt-4 pb-4 border-t border-gray-600/30">
+                <div class="flex flex-col space-y-4 pt-4">
+                    <a href="#inicio" class="text-rock-ivory hover:text-rock-red transition-colors font-medium py-2 px-4 rounded-lg hover:bg-rock-red/10">
+                        Inicio
+                    </a>
+                    <a href="#catalogo" class="text-rock-ivory hover:text-rock-red transition-colors font-medium py-2 px-4 rounded-lg hover:bg-rock-red/10">
+                        Catálogo
+                    </a>
+                    <a href="#promociones" class="text-rock-ivory hover:text-rock-red transition-colors font-medium py-2 px-4 rounded-lg hover:bg-rock-red/10">
+                        Promociones
+                    </a>
+                    <a href="#nosotros" class="text-rock-ivory hover:text-rock-red transition-colors font-medium py-2 px-4 rounded-lg hover:bg-rock-red/10">
+                        Nosotros
+                    </a>
+                    <a href="#contacto" class="text-rock-ivory hover:text-rock-red transition-colors font-medium py-2 px-4 rounded-lg hover:bg-rock-red/10">
+                        Contacto
+                    </a>
+                    <!-- Mobile Search -->
+                    <div class="relative pt-2">
+                        <input type="text" placeholder="Buscar instrumentos..." class="w-full bg-rock-black/80 backdrop-blur-sm text-rock-ivory px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 transition-all">
+                        <svg class="w-5 h-5 absolute right-3 top-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient min-h-screen flex items-center py-12 md:py-20 relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center min-h-[70vh] md:min-h-[80vh]">
+                <div class="space-y-8 md:space-y-12 py-8 md:py-16 text-center md:text-left">
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="inline-block bg-gradient-to-r from-rock-red/90 to-red-600/90 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full border border-rock-red shadow-lg">
+                            <span class="text-white font-rock font-semibold text-xs md:text-sm tracking-wider">⭐ REFERENTE MUSICAL EN CATAMARCA</span>
+                        </div>
+                        <h2 class="font-rock text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold leading-tight text-shadow-sm">
+                            LA MÚSICA <span class="gradient-text block">COMIENZA</span> AQUÍ
+                        </h2>
+                    </div>
+                    <p class="text-lg md:text-2xl text-gray-200 leading-relaxed max-w-lg mx-auto md:mx-0 text-shadow-sm">
+                        Somos el referente en Catamarca para músicos que buscan <span class="text-rock-red font-semibold">calidad</span>, <span class="text-rock-red font-semibold">tradición</span> y el mejor sonido.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 md:gap-6 pt-4 md:pt-8">
+                        <button onclick="scrollToSection('catalogo')" class="bg-gradient-to-r from-rock-red to-red-600 hover:from-red-600 hover:to-red-700 px-8 md:px-10 py-4 md:py-5 rounded-xl font-rock text-lg md:text-xl font-semibold transition-all duration-300 hover-rock shadow-xl hover:shadow-red-500/30">
+                            EXPLORAR INSTRUMENTOS
+                        </button>
+                        <button onclick="scrollToSection('promociones')" class="glass-effect border-2 border-rock-ivory/30 hover:bg-rock-ivory/10 hover:text-rock-ivory px-8 md:px-10 py-4 md:py-5 rounded-xl font-rock text-lg md:text-xl font-semibold transition-all duration-300 shadow-xl hover:shadow-xl hover-rock">
+                            VER PROMOCIONES
+                        </button>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-8 pt-6 md:pt-8">
+                        <div class="text-center hero-stats px-3 md:px-4 py-2 md:py-3 rounded-xl">
+                            <div class="text-xl md:text-2xl font-rock font-bold gradient-text">Confianza</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wide">de músicos locales</div>
+                        </div>
+                        <div class="w-px h-8 md:h-12 bg-gray-600 hidden sm:block"></div>
+                        <div class="text-center hero-stats px-3 md:px-4 py-2 md:py-3 rounded-xl">
+                            <div class="text-xl md:text-2xl font-rock font-bold gradient-text">500+</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wide">Instrumentos disponibles</div>
+                        </div>
+                        <div class="w-px h-8 md:h-12 bg-gray-600 hidden sm:block"></div>
+                        <div class="text-center hero-stats px-3 md:px-4 py-2 md:py-3 rounded-xl">
+                            <div class="text-xl md:text-2xl font-rock font-bold gradient-text">12</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wide">Cuotas sin interés</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- La imagen de fondo se ve aquí a la derecha -->
+                <div class="relative py-8 md:py-16 hidden md:block">
+                    <!-- Espacio vacío para mostrar la imagen de fondo -->
+                </div>
+            </div>
+        </div>
+        <div class="section-divider absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- Catálogo -->
+    <section id="catalogo" class="py-24 bg-gradient-light relative">
+        <div class="absolute top-0 left-0 right-0 section-divider"></div>
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20">
+                <div class="inline-block px-6 py-2 bg-rock-red/10 rounded-full mb-6">
+                    <span class="text-rock-red font-rock font-semibold text-sm tracking-wider">🎵 NUESTROS INSTRUMENTOS</span>
+                </div>
+                <h2 class="font-rock text-5xl md:text-6xl font-bold mb-6">
+                    <span class="gradient-text">NUESTRO CATÁLOGO</span>
+                </h2>
+                <p class="text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Encuentra el instrumento perfecto para tu estilo musical</p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4 mb-12 md:mb-16">
+                <button onclick="filterProducts('guitarras')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🎸 GUITARRAS
+                </button>
+                <button onclick="filterProducts('ukeleles')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🪕 UKELELES
+                </button>
+                <button onclick="filterProducts('charangos')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🎭 CHARANGOS
+                </button>
+                <button onclick="filterProducts('baterias')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🥁 BATERÍAS
+                </button>
+                <button onclick="filterProducts('audio')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🔊 AUDIO
+                </button>
+                <button onclick="filterProducts('accesorios')" class="category-btn category-btn-enhanced text-rock-ivory hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 px-3 md:px-6 py-3 md:py-4 rounded-xl font-rock text-sm md:text-base font-semibold transition-all duration-300 relative z-10">
+                    🎼 ACCESORIOS
+                </button>
+            </div>
+            
+            <div id="products-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+        <div class="section-divider absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- Promociones -->
+    <section id="promociones" class="py-24 bg-gradient-dark relative">
+        <div class="absolute top-0 left-0 right-0 section-divider"></div>
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20">
+                <div class="inline-block bg-gradient-to-r from-rock-red to-red-600 px-6 py-2 rounded-full mb-6 shadow-lg">
+                    <span class="text-white font-rock font-semibold text-sm tracking-wider">🔥 OFERTAS ESPECIALES</span>
+                </div>
+                <h2 class="font-rock text-5xl md:text-6xl font-bold mb-6 text-rock-ivory">
+                    DÍAS DE <span class="gradient-text">ENSUEÑO</span>
+                </h2>
+                <p class="text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">Ofertas especiales y planes de financiación para hacer realidad tus sueños musicales</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="promotion-card floating-card p-8 rounded-2xl text-rock-black relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-gradient-to-br from-rock-red to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                                <svg class="w-10 h-10 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-rock text-2xl font-bold mb-4 gradient-text">12 CUOTAS SIN INTERÉS</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">En guitarras seleccionadas con tarjetas de crédito. ¡Llevate tu instrumento hoy!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="promotion-card floating-card p-8 rounded-2xl text-rock-black relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-gradient-to-br from-rock-red to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                                <svg class="w-10 h-10 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-rock text-2xl font-bold mb-4 gradient-text">DESCUENTOS ESPECIALES</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Hasta 25% OFF en accesorios e insumos. Renová tu setup musical.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="promotion-card floating-card p-8 rounded-2xl text-rock-black relative overflow-hidden group">
+                    <div class="relative z-10">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-gradient-to-br from-rock-red to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                                <svg class="w-10 h-10 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586l-2 2V7H5v10h7v2H4a1 1 0 01-1-1V4z"/>
+                                    <path d="M17 12l4 4-4 4m3-4H9"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-rock text-2xl font-bold mb-4 gradient-text">PLANES DE CRÉDITO</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">Financiación propia hasta 18 meses. Construimos tu futuro musical.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-divider absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- Nosotros -->
+    <section id="nosotros" class="py-24 bg-gradient-light relative">
+        <div class="absolute top-0 left-0 right-0 section-divider"></div>
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-stretch">
+                <div class="order-2 md:order-1">
+                    <div class="inline-block px-6 py-2 bg-rock-red/10 rounded-full mb-8">
+                        <span class="text-rock-red font-rock font-semibold text-sm tracking-wider">📖 NUESTRA HISTORIA</span>
+                    </div>
+                    <h2 class="font-rock text-5xl md:text-6xl font-bold mb-8">
+                        <span class="gradient-text">NUESTRA HISTORIA</span>
+                    </h2>
+                    <div class="space-y-8 text-lg leading-relaxed text-gray-700">
+                        <p class="text-xl font-medium text-gray-800">
+                            <strong class="gradient-text">Casa de guitarras</strong> nació en Catamarca como un espacio dedicado a la pasión por la música y el compromiso de ofrecer instrumentos de la más alta calidad.
+                        </p>
+                        <p>
+                            Hemos acompañado a músicos de todas las edades y estilos, desde quienes dan sus primeros acordes hasta profesionales que buscan el mejor sonido para sus proyectos musicales más ambiciosos.
+                        </p>
+                        <p>
+                            Nuestro equipo está formado por personas que viven la música y entienden las necesidades de cada cliente, brindando asesoramiento personalizado para ayudarte a encontrar tu instrumento ideal.
+                        </p>
+                        <div class="flex items-center space-x-6 pt-6">
+                            <div class="flex items-center space-x-3 bg-white p-4 rounded-xl shadow-md">
+                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="font-semibold text-gray-800">Asesoramiento personalizado</span>
+                            </div>
+                            <div class="flex items-center space-x-3 bg-white p-4 rounded-xl shadow-md">
+                                <div class="w-3 h-3 bg-rock-red rounded-full animate-pulse"></div>
+                                <span class="font-semibold text-gray-800">Calidad garantizada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 relative">
+                    <div class="relative rounded-2xl shadow-2xl floating-card overflow-hidden h-full" style="background: url('./ubi.png') center center/cover no-repeat;">
+                        <div class="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70 rounded-2xl"></div>
+                        <div class="relative z-10 p-6 flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <p class="font-rock text-2xl font-bold text-rock-ivory mb-2">Rivadavia 1160, Catamarca</p>
+                                <p class="text-gray-300 text-lg">Tu punto de encuentro musical</p>
+                                <div class="flex justify-center space-x-4 mt-6">
+                                    <div class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg">
+                                        <span class="text-2xl">📍</span>
+                                        <span class="text-rock-ivory font-medium">Centro de Catamarca</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-lg">
+                                        <span class="text-2xl">🚗</span>
+                                        <span class="text-rock-ivory font-medium">Fácil acceso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-divider absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="py-24 bg-gradient-dark relative">
+        <div class="absolute top-0 left-0 right-0 section-divider"></div>
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-20">
+                <div class="inline-block bg-gradient-to-r from-rock-red to-red-600 px-6 py-2 rounded-full mb-6 shadow-lg">
+                    <span class="text-white font-rock font-semibold text-sm tracking-wider">📞 HABLEMOS</span>
+                </div>
+                <h2 class="font-rock text-5xl md:text-6xl font-bold mb-6 text-rock-ivory">
+                    <span class="gradient-text">CONTACTANOS</span>
+                </h2>
+                <p class="text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">Estamos aquí para ayudarte a encontrar tu sonido perfecto</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <div class="space-y-10">
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-rock-red to-red-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-rock text-2xl font-bold mb-3 text-rock-ivory">DIRECCIÓN</h3>
+                            <p class="text-gray-300 text-lg leading-relaxed">Rivadavia 1160, San Fernando del Valle de Catamarca</p>
+                            <p class="text-gray-400 mt-2">En el corazón del centro de la ciudad</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-rock-red to-red-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h5v-2h-5c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8v1.43c0 .79-.71 1.57-1.5 1.57s-1.5-.78-1.5-1.57V12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.38 0 2.64-.56 3.54-1.47.65.89 1.77 1.47 2.96 1.47 1.97 0 3.5-1.53 3.5-3.5V12c0-5.52-4.48-10-10-10zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-rock text-2xl font-bold mb-3 text-rock-ivory">HORARIOS</h3>
+                            <div class="space-y-2">
+                                <p class="text-gray-300 text-lg">Lunes a Viernes: <span class="text-rock-red font-semibold">9:00 - 19:00</span></p>
+                                <p class="text-gray-300 text-lg">Sábados: <span class="text-rock-red font-semibold">9:00 - 13:00</span></p>
+                                <p class="text-gray-400 mt-2">Domingos cerrado</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-6 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-rock-red to-red-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8 text-rock-ivory" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-rock text-2xl font-bold mb-3 text-rock-ivory">CONTACTO</h3>
+                            <div class="space-y-2">
+                                <p class="text-gray-300 text-lg">WhatsApp: <span class="text-green-400 font-semibold">+54 383 123-4567</span></p>
+                                <p class="text-gray-300 text-lg">Email: <span class="text-blue-400 font-semibold">info@lacasadelaguitarra.com</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                        <button onclick="openWhatsApp()" class="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-xl font-rock font-semibold transition-all duration-300 shadow-xl hover:shadow-green-500/25 flex items-center justify-center space-x-2">
+                            <span>💬</span>
+                            <span>CONSULTAR POR WHATSAPP</span>
+                        </button>
+                        <button class="flex-1 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-rock-red hover:to-red-600 text-white border-2 border-gray-600 hover:border-rock-red px-8 py-4 rounded-xl font-rock font-semibold transition-all duration-300 shadow-xl hover:shadow-gray-500/25 transform hover:scale-105 flex items-center justify-center space-x-2">
+                            <span>🗺️</span>
+                            <span>VER EN MAPA</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="floating-card bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-700">
+                    <h3 class="font-rock text-3xl font-bold mb-8 text-rock-ivory">ENVÍANOS UN MENSAJE</h3>
+                    <form onsubmit="handleContactForm(event)" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Tu nombre" required class="w-full bg-black/30 backdrop-blur-sm text-rock-ivory px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 transition-all">
+                            <input type="email" placeholder="Tu email" required class="w-full bg-black/30 backdrop-blur-sm text-rock-ivory px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 transition-all">
+                        </div>
+                        <input type="tel" placeholder="Tu teléfono" class="w-full bg-black/30 backdrop-blur-sm text-rock-ivory px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 transition-all">
+                        <textarea placeholder="Contanos sobre el instrumento que buscás o cualquier consulta..." rows="5" required class="w-full bg-black/30 backdrop-blur-sm text-rock-ivory px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-rock-red border border-gray-600/50 resize-none transition-all"></textarea>
+                        <button type="submit" class="w-full bg-gradient-to-r from-rock-red to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-xl font-rock font-semibold transition-all duration-300 shadow-xl hover:shadow-red-500/25 transform hover:scale-105">
+                            🚀 ENVIAR MENSAJE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="section-divider absolute bottom-0 left-0 right-0"></div>
+    </section>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-rock-ivory text-rock-black rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <!-- Modal Header -->
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex items-center space-x-4">
+                        <div id="modalProductIcon" class="text-6xl"></div>
+                        <div>
+                            <h2 id="modalProductName" class="font-rock text-2xl font-bold"></h2>
+                            <p id="modalProductDescription" class="text-gray-600"></p>
+                        </div>
+                    </div>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Price and Stock -->
+                <div class="bg-rock-gray text-rock-ivory p-4 rounded-lg mb-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span id="modalProductPrice" class="text-3xl font-bold text-rock-red"></span>
+                            <p class="text-sm text-gray-300">12 cuotas sin interés</p>
+                        </div>
+                        <div id="modalStockIndicator" class="px-3 py-1 rounded-full text-sm font-semibold">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Specifications -->
+                    <div>
+                        <h3 class="font-rock text-xl font-bold mb-4 text-rock-red">ESPECIFICACIONES</h3>
+                        <div id="modalSpecs" class="space-y-2">
+                            <!-- Specs will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div>
+                        <h3 class="font-rock text-xl font-bold mb-4 text-rock-red">CARACTERÍSTICAS</h3>
+                        <ul id="modalFeatures" class="space-y-2">
+                            <!-- Features will be populated here -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                    <button id="modalAddToCart" onclick="addToCartFromModal()" class="flex-1 bg-rock-red hover:bg-red-700 text-white px-6 py-3 rounded-lg font-rock font-semibold transition-colors">
+                        🛒 AGREGAR AL CARRITO
+                    </button>
+                    <button id="modalWhatsApp" onclick="consultWhatsAppFromModal()" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-rock font-semibold transition-colors">
+                        💬 CONSULTAR POR WHATSAPP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-gray-900 to-black py-16 border-t border-rock-red/20">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <img src="./logo.png" alt="Casa de guitarras" class="w-40 h-40 object-contain">
+                    </div>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
+                        Más que una tienda, somos tu partner musical. Encontrá el instrumento perfecto para tu viaje artístico.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 rounded-xl flex items-center justify-center transition-all duration-300 group">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 rounded-xl flex items-center justify-center transition-all duration-300 group">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-gradient-to-r hover:from-rock-red hover:to-red-600 rounded-xl flex items-center justify-center transition-all duration-300 group">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-gradient-to-r hover:from-green-600 hover:to-green-700 rounded-xl flex items-center justify-center transition-all duration-300 group">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-rock text-xl font-bold mb-6 text-rock-ivory">CATEGORÍAS</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Guitarras</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Ukeleles</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Charangos</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Baterías</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Audio y Accesorios</span>
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-rock text-xl font-bold mb-6 text-rock-ivory">INFORMACIÓN</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Sobre Nosotros</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Promociones</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Términos y Condiciones</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Política de Privacidad</span>
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-rock-red transition-colors duration-300 flex items-center space-x-2 group">
+                            <span class="w-2 h-2 bg-rock-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span>Método de Pago</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p class="text-gray-400 text-center md:text-left">© 2024 Casa de guitarras. Todos los derechos reservados.</p>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-500">Hecho con</span>
+                        <span class="text-rock-red text-xl animate-pulse">♥</span>
+                        <span class="text-gray-500">para la música</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample products data
+        const products = [
+            {
+                id: 1,
+                name: "Guitarra Acústica Yamaha F310",
+                category: "guitarras",
+                price: 89000,
+                image: "🎸",
+                description: "Guitarra acústica ideal para principiantes",
+                specs: {
+                    marca: "Yamaha",
+                    modelo: "F310",
+                    tipo: "Acústica",
+                    tapa: "Abeto",
+                    aros: "Meranti",
+                    fondo: "Meranti",
+                    mastil: "Nato",
+                    diapason: "Palisandro",
+                    trastes: "20",
+                    clavijas: "Cromadas",
+                    cuerdas: "Acero",
+                    escala: "25 pulgadas (634mm)"
+                },
+                features: ["Ideal para principiantes", "Sonido brillante y claro", "Construcción sólida", "Excelente relación precio-calidad"],
+                inStock: true
+            },
+            {
+                id: 2,
+                name: "Guitarra Eléctrica Fender Stratocaster",
+                category: "guitarras",
+                price: 245000,
+                image: "🎸",
+                description: "Guitarra eléctrica profesional",
+                specs: {
+                    marca: "Fender",
+                    modelo: "Player Stratocaster",
+                    tipo: "Eléctrica",
+                    cuerpo: "Aliso",
+                    mastil: "Arce",
+                    diapason: "Palisandro",
+                    trastes: "22",
+                    pickups: "3 Single Coil Player Series",
+                    puente: "Tremolo sincronizado de 2 puntos",
+                    clavijas: "Fender Standard Cast/Sealed",
+                    escala: "25.5 pulgadas (648mm)"
+                },
+                features: ["Sonido Stratocaster clásico", "Mastil moderno en C", "Pickups Player Series", "Hardware cromado"],
+                inStock: true
+            },
+            {
+                id: 3,
+                name: "Ukelele Soprano Kala",
+                category: "ukeleles",
+                price: 35000,
+                image: "🪕",
+                description: "Ukelele soprano de caoba",
+                specs: {
+                    marca: "Kala",
+                    modelo: "KA-15S",
+                    tamaño: "Soprano",
+                    tapa: "Caoba",
+                    aros: "Caoba",
+                    fondo: "Caoba",
+                    mastil: "Caoba",
+                    diapason: "Palisandro",
+                    trastes: "12",
+                    clavijas: "Engranaje",
+                    cuerdas: "Aquila Nylgut"
+                },
+                features: ["Sonido cálido tradicional", "Tamaño compacto", "Ideal para viajar", "Cuerdas Aquila incluidas"],
+                inStock: true
+            },
+            {
+                id: 4,
+                name: "Charango Boliviano Tradicional",
+                category: "charangos",
+                price: 125000,
+                image: "🪕",
+                description: "Charango artesanal boliviano",
+                specs: {
+                    origen: "Bolivia",
+                    tipo: "Tradicional",
+                    tapa: "Abeto",
+                    caja: "Quirquincho (armadillo)",
+                    mastil: "Cedro",
+                    diapason: "Ébano",
+                    trastes: "17",
+                    cuerdas: "10 cuerdas (5 pares)",
+                    afinacion: "Sol-Do-Mi-La-Mi",
+                    acabado: "Barniz natural"
+                },
+                features: ["Artesanía boliviana auténtica", "Sonido tradicional andino", "Caja de quirquincho natural", "Ideal para música folclórica"],
+                inStock: false
+            },
+            {
+                id: 5,
+                name: "Batería Pearl Export Series",
+                category: "baterias",
+                price: 450000,
+                image: "🥁",
+                description: "Batería completa 5 piezas",
+                specs: {
+                    marca: "Pearl",
+                    serie: "Export Series",
+                    piezas: "5 piezas",
+                    bombo: "22\" x 18\"",
+                    tom1: "10\" x 8\"",
+                    tom2: "12\" x 9\"",
+                    timbal: "16\" x 16\"",
+                    redoblante: "14\" x 5.5\"",
+                    cascos: "Madera de álamo 6 capas",
+                    herrajes: "Cromados",
+                    platillos: "No incluidos"
+                },
+                features: ["Sonido potente y definido", "Hardware robusto", "6 capas de álamo", "Ideal para rock y pop"],
+                inStock: true
+            },
+            {
+                id: 6,
+                name: "Micrófono Shure SM58",
+                category: "audio",
+                price: 95000,
+                image: "🎤",
+                description: "Micrófono dinámico profesional",
+                specs: {
+                    marca: "Shure",
+                    modelo: "SM58",
+                    tipo: "Dinámico cardioide",
+                    respuesta: "50 Hz - 15 kHz",
+                    impedancia: "300 ohms",
+                    sensibilidad: "-54.5 dBV/Pa",
+                    patron: "Cardioide",
+                    conector: "XLR-3M",
+                    peso: "298g",
+                    dimensiones: "162mm x 51mm"
+                },
+                features: ["Estándar de la industria", "Resistente a la retroalimentación", "Construcción robusta", "Ideal para voces en vivo"],
+                inStock: true
+            },
+            {
+                id: 7,
+                name: "Cuerdas D'Addario EXP16",
+                category: "accesorios",
+                price: 8500,
+                image: "🎼",
+                description: "Juego de cuerdas para guitarra acústica",
+                specs: {
+                    marca: "D'Addario",
+                    modelo: "EXP16",
+                    tipo: "Coated Phosphor Bronze",
+                    calibre: "Light (.012-.053)",
+                    material: "Bronce fosforado",
+                    recubrimiento: "EXP Coating",
+                    cuerdas: "6 cuerdas",
+                    empaque: "Sellado al vacío"
+                },
+                features: ["Duración 4x mayor", "Sonido brillante", "Resistente a la corrosión", "Tacto suave"],
+                inStock: true
+            },
+            {
+                id: 8,
+                name: "Amplificador Marshall MG15",
+                category: "audio",
+                price: 75000,
+                image: "🔊",
+                description: "Amplificador para guitarra 15W",
+                specs: {
+                    marca: "Marshall",
+                    modelo: "MG15CFR",
+                    potencia: "15 watts",
+                    parlante: "8 pulgadas",
+                    canales: "2 (Clean/Overdrive)",
+                    controles: "Gain, Bass, Middle, Treble, Volume",
+                    efectos: "Reverb digital",
+                    entrada: "1/4\" jack",
+                    auriculares: "1/4\" jack",
+                    dimensiones: "34 x 31 x 18 cm"
+                },
+                features: ["Sonido Marshall clásico", "2 canales", "Reverb digital", "Ideal para práctica"],
+                inStock: true
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+        });
+
+        function loadProducts(category = 'all') {
+            const productsGrid = document.getElementById('products-grid');
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            
+            productsGrid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card bg-white rounded-2xl shadow-xl overflow-hidden floating-card cursor-pointer group border border-gray-100" onclick="openProductModal(${product.id})">
+                    <div class="product-card-content">
+                        <div class="relative overflow-hidden">
+                            <div class="product-image text-7xl text-center py-12 bg-gradient-to-br from-gray-50 via-white to-gray-100 group-hover:from-rock-red/5 group-hover:to-red-50 transition-all duration-500">
+                                ${product.image}
+                            </div>
+                            ${!product.inStock ? '<div class="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">AGOTADO</div>' : ''}
+                            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-rock-black px-3 py-1 rounded-full text-xs font-semibold shadow-lg border">
+                                ${product.specs.marca || 'Premium'}
+                            </div>
+                        </div>
+                        <div class="product-card-body p-6">
+                            <div class="flex-1">
+                                <h3 class="font-rock text-xl font-bold mb-3 min-h-[3rem] flex items-center text-gray-800 group-hover:text-rock-red transition-colors duration-300">${product.name}</h3>
+                                <p class="text-gray-600 text-sm mb-4 min-h-[2.5rem] leading-relaxed">${product.description}</p>
+                                <div class="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border">
+                                    <div>
+                                        <span class="text-3xl font-bold gradient-text">$${product.price.toLocaleString()}</span>
+                                        <p class="text-sm text-gray-500 font-medium">12 cuotas sin interés</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="flex items-center justify-end space-x-2">
+                                            <span class="inline-block w-3 h-3 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'} shadow-sm"></span>
+                                            <span class="text-sm ${product.inStock ? 'text-green-600' : 'text-red-600'} font-semibold">
+                                                ${product.inStock ? 'En Stock' : 'Agotado'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="product-card-button w-full bg-gradient-to-r from-rock-black to-gray-800 hover:from-rock-red hover:to-red-600 text-white px-6 py-4 rounded-xl font-rock font-semibold transition-all duration-300 transform group-hover:scale-105 shadow-lg hover:shadow-xl">
+                                👁️ VER DETALLES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(category) {
+            currentCategory = category;
+            loadProducts(category);
+            
+            // Update active category button with smooth animations
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-gradient-to-r', 'from-rock-red', 'to-red-600');
+                btn.classList.add('category-btn-enhanced');
+                btn.style.transform = 'scale(1)';
+            });
+            
+            // Find and highlight the active button
+            const activeButton = event.target;
+            activeButton.classList.remove('category-btn-enhanced');
+            activeButton.classList.add('bg-gradient-to-r', 'from-rock-red', 'to-red-600');
+            activeButton.style.transform = 'scale(1.05)';
+            
+            // Add a subtle animation to the products grid
+            const productsGrid = document.getElementById('products-grid');
+            productsGrid.style.opacity = '0.7';
+            productsGrid.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                productsGrid.style.opacity = '1';
+                productsGrid.style.transform = 'translateY(0)';
+                productsGrid.style.transition = 'all 0.3s ease';
+            }, 100);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCartCount();
+            showNotification(`${product.name} agregado al carrito`);
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Hide notification
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function consultWhatsApp(productName) {
+            const message = `Hola! Me interesa consultar sobre: ${productName}`;
+            const whatsappUrl = `https://wa.me/5438312345678?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function openWhatsApp() {
+            const message = "Hola! Me gustaría recibir información sobre sus productos.";
+            const whatsappUrl = `https://wa.me/5438312345678?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function handleContactForm(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            showNotification('Mensaje enviado correctamente. Te contactaremos pronto!');
+            event.target.reset();
+        }
+
+        // Modal functions
+        let currentModalProduct = null;
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentModalProduct = product;
+
+            // Populate modal content
+            document.getElementById('modalProductIcon').textContent = product.image;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductDescription').textContent = product.description;
+            document.getElementById('modalProductPrice').textContent = `$${product.price.toLocaleString()}`;
+
+            // Stock indicator
+            const stockIndicator = document.getElementById('modalStockIndicator');
+            if (product.inStock) {
+                stockIndicator.textContent = '✅ En Stock';
+                stockIndicator.className = 'px-3 py-1 rounded-full text-sm font-semibold bg-green-500 text-white';
+            } else {
+                stockIndicator.textContent = '❌ Agotado';
+                stockIndicator.className = 'px-3 py-1 rounded-full text-sm font-semibold bg-red-500 text-white';
+            }
+
+            // Populate specifications
+            const specsContainer = document.getElementById('modalSpecs');
+            specsContainer.innerHTML = Object.entries(product.specs).map(([key, value]) => `
+                <div class="flex justify-between py-1 border-b border-gray-200">
+                    <span class="font-medium capitalize">${key.replace(/([A-Z])/g, ' $1').trim()}:</span>
+                    <span class="text-gray-700">${value}</span>
+                </div>
+            `).join('');
+
+            // Populate features
+            const featuresContainer = document.getElementById('modalFeatures');
+            featuresContainer.innerHTML = product.features.map(feature => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-rock-red mt-1">✓</span>
+                    <span>${feature}</span>
+                </li>
+            `).join('');
+
+            // Update button states
+            const addToCartBtn = document.getElementById('modalAddToCart');
+            if (!product.inStock) {
+                addToCartBtn.disabled = true;
+                addToCartBtn.textContent = '❌ PRODUCTO AGOTADO';
+                addToCartBtn.className = 'flex-1 bg-gray-400 text-white px-6 py-3 rounded-lg font-rock font-semibold cursor-not-allowed';
+            } else {
+                addToCartBtn.disabled = false;
+                addToCartBtn.textContent = '🛒 AGREGAR AL CARRITO';
+                addToCartBtn.className = 'flex-1 bg-rock-red hover:bg-red-700 text-white px-6 py-3 rounded-lg font-rock font-semibold transition-colors';
+            }
+
+            // Show modal
+            document.getElementById('productModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            currentModalProduct = null;
+        }
+
+        function addToCartFromModal() {
+            if (currentModalProduct && currentModalProduct.inStock) {
+                addToCart(currentModalProduct.id);
+                closeModal();
+            }
+        }
+
+        function consultWhatsAppFromModal() {
+            if (currentModalProduct) {
+                consultWhatsApp(currentModalProduct.name);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Toggle icon
+                    const icon = mobileMenuBtn.querySelector('svg');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                    } else {
+                        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                    }
+                });
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9890c94fd492b4e3',t:'MTc1OTU0MDA4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
